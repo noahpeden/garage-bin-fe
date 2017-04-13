@@ -6,8 +6,10 @@
     "react-scripts": "0.9.5"
   },
   "dependencies": {
+    "animate.css": "^3.5.2",
     "react": "^15.5.4",
-    "react-dom": "^15.5.4"
+    "react-dom": "^15.5.4",
+    "react-reveal": "^0.1.1"
   },
   "scripts": {
     "start": "react-scripts start",
