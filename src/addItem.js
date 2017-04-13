@@ -27,6 +27,12 @@ class AddItem extends Component {
     this.setState({ [e.target.id]: e.target.value })
   }
 
+  updateCleanliness(e){
+    this.setState({
+      cleanliness: e.target.value
+    })
+  }
+
   render() {
     return (
         <div>
@@ -48,10 +54,11 @@ class AddItem extends Component {
               onChange={this.updateInput}
               value={this.state.reason}
             id="reason"/>
-          <input placeholder="Cleanliness"
-                  onChange={this.updateInput}
-                  value={this.state.cleanliness}
-                id="cleanliness"/>
+          <select onChange={(e) => this.updateCleanliness(e)} id="cleanliness">
+            <option value="Rancid">Rancid</option>
+            <option value="Dusty">Dusty</option>
+            <option value="Sparkling">Sparkling</option>
+          </select>
 =                <button>Submit</button>
               </form>
         </div>
