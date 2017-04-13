@@ -3,6 +3,7 @@ import './App.css';
 import Reveal from 'react-reveal';
 import logo from './logo.svg';
 import axios from 'axios';
+import AddItem from './addItem.js'
 import './App.css';
 import 'animate.css/animate.css';
 
@@ -45,6 +46,7 @@ class App extends Component {
               </ul>
             }) : <div>Door is closed</div>}
           </div>
+          <AddItem />
         </div>
       );
     }
