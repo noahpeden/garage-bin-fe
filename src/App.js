@@ -12,6 +12,9 @@ class App extends Component {
     super()
     this.state = {
       items: null,
+      rancid: 0,
+      dusty: 0,
+      sparkling: 0
     }
   }
   openGarage(){
@@ -21,6 +24,9 @@ class App extends Component {
       this.setState({
         items: response.data
       })
+    })
+    .then((response) => {
+      this.cleanlinessCounter()
     })
   }
 
@@ -46,8 +52,28 @@ class App extends Component {
   }
 
   cleanlinessCounter(){
-    Object.keys(this.state.items)
+    let items = this.state.items
+    items.forEach((item)=> {
+      console.log(item.cleanliness);
+      if(item.cleanliness === 'rancid'){
+        this.setState({
+          rancid: this.state.rancid + 1
+        })
+      }
+      if(item.cleanliness === 'dusty'){
+        this.setState({
+          dusty: this.state.dusty + 1
+        })
+      }
+      if(item.cleanliness === 'sparkling'){
+        this.setState({
+          sparkling: this.state.sparkling + 1
+        })
+      }
+    })
   }
+
+
 
   render() {
     let items = this.state.items
@@ -59,6 +85,7 @@ class App extends Component {
         <button onClick={() => this.sortName()}>Sort By Name</button>
         <div>
           {items ? <h3>Number of Items: {items.length}</h3> : <div></div> }
+          {items && <div>Rancid: {this.state.rancid} Dusty: {this.state.dusty}  Sparkling: {this.state.sparkling}</div>}
           {items ? items.map((item)=> {
             return <div key={item.id}>
               <ul>
