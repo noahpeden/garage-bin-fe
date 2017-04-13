@@ -35,36 +35,36 @@ class AddItem extends Component {
 
   render() {
     return (
-        <div>
-          Add a new item:
-          <form onSubmit={(e) => {
-            e.preventDefault()
-            this.addNewItem()
-            this.setState({
-              name: '',
-              reason: '',
-              cleanliness: '',
-            })
-          }}>
-          <input placeholder="Name"
-            onChange={this.updateInput}
-            value={this.state.name}
-            id="name"/>
+      <sidebar>
+        Add a new item:
+        <form onSubmit={(e) => {
+          e.preventDefault()
+          this.addNewItem()
+          this.setState({
+            name: '',
+            reason: '',
+            cleanliness: '',
+          })
+        }}>
+        <input placeholder="Name"
+          onChange={this.updateInput}
+          value={this.state.name}
+          id="name"/>
           <input placeholder="Reason"
-              onChange={this.updateInput}
-              value={this.state.reason}
+            onChange={this.updateInput}
+            value={this.state.reason}
             id="reason"/>
-          <select onChange={(e) => this.updateCleanliness(e)} id="cleanliness">
-            <option value="Rancid">Rancid</option>
-            <option value="Dusty">Dusty</option>
-            <option value="Sparkling">Sparkling</option>
-          </select>
-=                <button>Submit</button>
-              </form>
-        </div>
+            <select onChange={(e) => this.updateCleanliness(e)} id="cleanliness" placeholder="Cleanliness">
+              <option value="Rancid">Rancid</option>
+              <option value="Dusty">Dusty</option>
+              <option value="Sparkling">Sparkling</option>
+            </select>
+            <button>Submit</button>
+          </form>
+        </sidebar>
       );
     }
   }
 
 
-export default AddItem;
+  export default AddItem;
