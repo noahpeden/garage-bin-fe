@@ -6,6 +6,7 @@ import axios from 'axios';
 import AddItem from './addItem.js'
 import './App.css';
 import 'animate.css/animate.css';
+import {Link} from 'react-router';
 
 class App extends Component {
   constructor(){
@@ -14,9 +15,26 @@ class App extends Component {
       items: null,
       rancid: 0,
       dusty: 0,
-      sparkling: 0
+      sparkling: 0,
+      itemId: null,
+      cleanliness: ''
     }
   }
+  updateCleanliness(e, itemId){
+    this.setState({
+      cleanliness: e.target.value
+    })
+    this.patchCleanliness(itemId)
+  }
+
+  patchCleanliness(itemId){
+    axios
+    .patch(`https://garage-bin-be.herokuapp.com/api/v1/items/${itemId}`, {
+      cleanliness: this.state.cleanliness
+    })
+    .then((response) => console.log(response))
+  }
+
   openGarage(){
     axios
     .get('https://garage-bin-be.herokuapp.com/api/v1/items')
@@ -54,7 +72,6 @@ class App extends Component {
   cleanlinessCounter(){
     let items = this.state.items
     items.forEach((item)=> {
-      console.log(item.cleanliness);
       if(item.cleanliness === 'rancid'){
         this.setState({
           rancid: this.state.rancid + 1
@@ -73,6 +90,17 @@ class App extends Component {
     })
   }
 
+  itemId(item){
+    console.log(item);
+    this.setState({
+      itemId: item,
+      items: null
+    })
+  }
+
+  goHome(){
+    window.location.reload()
+  }
 
 
   render() {
@@ -89,13 +117,21 @@ class App extends Component {
           {items ? items.map((item)=> {
             return <div key={item.id}>
               <ul>
-              <li>Name: {item.name}</li>
+              Item: <Link to="/item" onClick={()=> this.itemId(item.id)}>{item.name}</Link>
               <li>Reason: {item.reason}</li>
-              <li>cleanliness: {item.cleanliness}</li>
+              <li>Current Cleanliness: {item.cleanliness}</li>
+              Change Cleanliness: <select onChange={(e) => this.updateCleanliness(e, item.id)} id="cleanliness" placeholder="Cleanliness">
+                            <option value="Rancid">Rancid</option>
+                            <option value="Dusty">Dusty</option>
+                            <option value="Sparkling">Sparkling</option>
+                          </select>
             </ul>
           </div>
           }) : <div>Door is closed</div>}
         </div>
+        {this.state.itemId && React.cloneElement(this.props.children, {
+          itemId: this.state.itemId
+        }) }
         <AddItem />
       </div>
     );
