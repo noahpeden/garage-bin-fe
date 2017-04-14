@@ -71,13 +71,14 @@ class App extends Component {
 
   cleanlinessCounter(){
     let items = this.state.items
-    items.forEach((item)=> {
+    items.forEach((item) => {
+      console.log(item.cleanliness)
       if(item.cleanliness === 'rancid'){
         this.setState({
           rancid: this.state.rancid + 1
         })
       }
-      if(item.cleanliness === 'dusty'){
+      if(item.cleanliness === 'rusty'){
         this.setState({
           dusty: this.state.dusty + 1
         })
@@ -107,7 +108,7 @@ class App extends Component {
     let items = this.state.items
     return (
       <div className="App">
-        <h1>Garage Bin - Check What Items Lie in the Beyond!</h1>
+        <h1>Garage Bin!</h1>
         <button onClick={() => this.openGarage()}>Open!</button>
         <button onClick={() => this.closeGarage()}>Close!</button>
         <button onClick={() => this.sortName()}>Sort By Name</button>
